@@ -26,3 +26,5 @@ $RECYCLE.BIN/
 assets/
 protected/runtime/
 themes/classic/views/
+
+protected/config/man.php
