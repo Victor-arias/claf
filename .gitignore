@@ -27,4 +27,4 @@ assets/
 protected/runtime/
 themes/classic/views/
 
-protected/config/man.php
+protected/config/main.php
