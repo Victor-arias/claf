@@ -56,7 +56,7 @@ class Jugador extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usuario_id, nombre, apellido, sexo, tipo_documento, documento, fecha_nacimiento, telefono, celular, barrio_id, nivel_educacion, ocupacion_id, otra_ocupacion, fecha_registro, puntaje, suscripcion', 'required'),
+			array('usuario_id, nombre, apellido, sexo, tipo_documento, documento, fecha_nacimiento, telefono, celular, barrio_id, nivel_educacion, ocupacion_id, fecha_registro, puntaje, suscripcion', 'required'),
 			array('tipo_documento, nivel_educacion, suscripcion', 'numerical', 'integerOnly'=>true),
 			array('usuario_id, barrio_id, ocupacion_id, puntaje', 'length', 'max'=>10),
 			array('nombre, apellido', 'length', 'max'=>100),
