@@ -1,5 +1,4 @@
 <?php
-
 class JugarController extends Controller
 {
 	private $_jugador_id= 0;
@@ -11,6 +10,7 @@ class JugarController extends Controller
 	private $_puntosr 	= 0;
 	private $_puntost 	= 0;
 	private $_situacion = 0;
+	private $_partido_id= 0;
 
 	/**
 	 * @return array action filters
@@ -57,9 +57,16 @@ class JugarController extends Controller
 
 	public function actionJugar()
 	{
-		$this->verificar_sesion();
+		if( if( !isset($_POST['partido']) && !is_int($_POST['partido']) ) throw new CHttpException('403', 'Forbidden access.'); )
+		$partido_id = Partido::model()->verificar_partido( $_POST['partido'] );
+		if($partido_id)
+		{
+			$this->_partido_id = $partido_id;
+			$this->verificar_sesion();
 
-		$this->render('jugar');
+			$this->render('jugar');	
+		}
+		
 	}
 
 	public function actionCargarPregunta()
@@ -95,8 +102,8 @@ class JugarController extends Controller
 	public function actionControl()
 	{
 		$this->verificar_sesion();
-		$respuesta = array( 's' => $this->_situacion,
-							'n' => $this->_nivel,
+		$respuesta = array( 's'  => $this->_situacion,
+							'n'  => $this->_nivel,
 							'pn' => $this->_preguntan,
 							'pr' => $this->_puntosr,
 							'pt' => $this->_puntost );
@@ -227,7 +234,7 @@ class JugarController extends Controller
 			$pt = Jugador::model()->getPuntos( $this->_jugador_id );
 
 			$ronda = new Ronda;
-			Yii::app()->session['ronda'] 		= $this->_ronda 	= $ronda->iniciarRonda( $this->_jugador_id );
+			Yii::app()->session['ronda'] 		= $this->_ronda 	= $ronda->iniciarRonda( $this->_jugador_id, $this->_partido_id );
 			Yii::app()->session['preguntas']	= $this->_preguntas = array();
 			Yii::app()->session['preguntan']	= $this->_preguntan = 0;
 			Yii::app()->session['preguntaid']	= $this->_preguntaid= 0;
@@ -248,7 +255,6 @@ class JugarController extends Controller
 			$this->_puntosr	 	= Yii::app()->session['puntosr'];
 			$this->_puntost	 	= Yii::app()->session['puntost'];
 			$this->_situacion	= Yii::app()->session['situacion'];
-
 		}
 	}//verificar_sesion
 
