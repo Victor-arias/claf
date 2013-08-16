@@ -92,8 +92,8 @@ class Jugador extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'usuario_id' => 'Usuario',
-			'nombre' => 'Nombre',
-			'apellido' => 'Apellido',
+			'nombre' => 'Nombres',
+			'apellido' => 'Apellidos',
 			'sexo' => 'Sexo',
 			'tipo_documento' => 'Tipo Documento',
 			'documento' => 'Documento',
@@ -107,7 +107,7 @@ class Jugador extends CActiveRecord
 			'otra_ocupacion' => 'Otra Ocupacion',
 			'fecha_registro' => 'Fecha Registro',
 			'puntaje' => 'Puntaje',
-			'suscripcion' => 'Suscripcion',
+			'suscripcion' => 'He leido y acepto los términos y condiciones.',
 		);
 	}
 
