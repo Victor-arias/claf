@@ -57,8 +57,8 @@ class JugarController extends Controller
 
 	public function actionJugar()
 	{
-		if( if( !isset($_POST['partido']) && !is_int($_POST['partido']) ) throw new CHttpException('403', 'Forbidden access.'); )
-		$partido_id = Partido::model()->verificar_partido( $_POST['partido'] );
+		if( !isset($_GET['partido']) && !is_int($_GET['partido']) ) throw new CHttpException('403', 'Forbidden access.'); )
+		$partido_id = Partido::model()->verificar_partido( $_GET['partido'] );
 		if($partido_id)
 		{
 			$this->_partido_id = $partido_id;
