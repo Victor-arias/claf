@@ -41,6 +41,23 @@ class SiteController extends Controller
 		}
 	}
 
+	public function actionInstrucciones()
+	{
+		if( isset($_GET['partido']) ) $partido_id = $_GET['partido'];
+		else
+		{
+			$partido = Partido::model()->find( array('order' => 'fecha DESC') );
+			$partido_id = $partido->id;
+		}
+		$partidos = Partido::model()->findAll();
+		
+		$this->render('instrucciones', array(
+				'partidos' => $partidos,
+				'partido_id'  => $partido_id
+			)
+		);
+	}
+
 	/**
 	 * Displays the login page
 	 */
