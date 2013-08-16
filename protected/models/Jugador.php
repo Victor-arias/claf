@@ -56,7 +56,7 @@ class Jugador extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usuario_id, nombre, apellido, sexo, tipo_documento, documento, fecha_nacimiento, telefono, celular, barrio_id, nivel_educacion, ocupacion_id, otra_ocupacion, fecha_registro, puntaje, suscripcion', 'required'),
+			array('usuario_id, nombre, apellido, sexo, tipo_documento, documento, fecha_nacimiento, telefono, celular, barrio_id, nivel_educacion, ocupacion_id, fecha_registro, puntaje, suscripcion', 'required'),
 			array('tipo_documento, nivel_educacion, suscripcion', 'numerical', 'integerOnly'=>true),
 			array('usuario_id, barrio_id, ocupacion_id, puntaje', 'length', 'max'=>10),
 			array('nombre, apellido', 'length', 'max'=>100),
@@ -144,5 +144,59 @@ class Jugador extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function getEdad()
+	{
+		 $date = new DateTime($this->fecha_nacimiento);
+		 $now = new DateTime();
+		 $interval = $now->diff($date);
+		 return $interval->y;
+	}
+	
+	public function getPuntos($jugador_id = 0)
+	{
+		 if($jugador_id == 0) $jugador_id = Yii::app()->user->id;
+		 $jugador = $this->findByPk($jugador_id, array('select' => 'puntaje'));
+		 return $jugador->puntaje;
+	}
+
+	public function setPuntos($puntaje, $jugador_id = 0)
+	{
+		if($jugador_id == 0) $jugador_id = Yii::app()->user->id;
+		$jugador = $this->findByPk($jugador_id);
+		$a = array('puntaje' => ($jugador->puntaje + $puntaje) );
+		if( $jugador->updateByPk($jugador->id, $a) )
+			return $this->getPuntos($jugador_id);
+		else
+			return false;
+	}
+
+	public function getRanking()
+	{
+		 
+		 $c = new CDbCriteria;
+		 $c->addCondition('puntaje > 0');
+		 $c->limit = 10;
+		 $c->order = 'puntaje DESC';
+		 $ninos = $this->findAllByAttributes(array('sexo' => 'M'), $c);
+		 $ninas = $this->findAllByAttributes(array('sexo' => 'F'), $c);
+		 $resultado = array('ninos' => $ninos, 'ninas' => $ninas);
+		 return $resultado;
+	}
+
+	protected function beforeSave()
+	{
+		        
+        if($this->isNewRecord)
+        {
+        	$this->fecha_registro = date('Y-m-d H:i:s');
+        	$this->puntaje = 0;	
+        }else
+        {
+        	$this->fecha_actualizacion = date('Y-m-d H:i:s');
+        }
+        
+    	return true;
 	}
 }
