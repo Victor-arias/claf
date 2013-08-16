@@ -13,7 +13,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->getBaseUrl().'/js/juego
 		<a href="#" class=""></a>
 	</div>
 	<div id="pregunta">
-		<p class="tiempo">Tiempo <span id="tiempo"></span></p>
 		<p id="p" class="pregunta"></p>
 		<a href="#" id="ra"></a>
 		<a href="#" id="rb"></a>

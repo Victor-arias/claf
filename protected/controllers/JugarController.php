@@ -57,7 +57,7 @@ class JugarController extends Controller
 
 	public function actionJugar()
 	{
-		if( !isset($_GET['partido']) && !is_int($_GET['partido']) ) throw new CHttpException('403', 'Forbidden access.'); )
+		if( !isset($_GET['partido']) && !is_int($_GET['partido']) ) throw new CHttpException('403', 'Forbidden access.');
 		$partido_id = Partido::model()->verificar_partido( $_GET['partido'] );
 		if($partido_id)
 		{
@@ -91,6 +91,7 @@ class JugarController extends Controller
     	$pxr = new PreguntaXRonda;
     	$pxr->ronda_id 		= $this->_ronda;
     	$pxr->pregunta_id 	= $this->_preguntaid;
+    	$pxr->fecha 		= time();
     	$pxr->estado 		= 0;
     	$pxr->save();
 		header('Content-Type: application/json; charset="UTF-8"');
@@ -148,8 +149,6 @@ class JugarController extends Controller
 	    	$pxr->estado 		= 1;
 	    	$pxr->update();
 
-	    	
-
 	    	Yii::app()->session['preguntaid'] 	= $this->_preguntaid = 0;
 	    	Yii::app()->session['puntosr'] 		= $this->_puntosr 	 = $puntosr;
 
@@ -163,7 +162,7 @@ class JugarController extends Controller
 	    	}
 	    	else
 	    	{
-	    		if($this->_nivel < 5){
+	    		if( $this->_nivel < 4){
 	    			$tmpsituacion = 5; //5. Cambio de nivel	
 	    			$newnivel = Nivel::model()->findByPk($this->_nivel + 1);
 	    			Yii::app()->session['nivel'] = $this->_nivel = $this->_nivel + 1;
@@ -211,7 +210,7 @@ class JugarController extends Controller
 		*/
 
 		$pregunta = new Pregunta;
-		$resultado = $pregunta->obtener_pregunta($this->_nivel, $pregunta_id);
+		$resultado = $pregunta->obtener_pregunta($this->_partido_id, $this->_nivel, $pregunta_id);
 		if( in_array($resultado['pregunta']->id, $this->_preguntas ) )
 			$resultado = $this->cargar_pregunta($pregunta_id);
 					
@@ -241,7 +240,7 @@ class JugarController extends Controller
 			Yii::app()->session['nivel'] 		= $this->_nivel 	= 1;
 			Yii::app()->session['puntosr'] 		= $this->_puntosr 	= 0;
 			Yii::app()->session['puntost'] 		= $this->_puntost 	= $pt;
-			Yii::app()->session['situacion']	= $this->_situacion = 1; //1. inicio
+			Yii::app()->session['situacion']	= $this->_situacion = 2; //2. Directo a la primer pregunta
 
 			$nivel = Nivel::model()->findByPk($this->_nivel);
 		}else

@@ -1,24 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "partido".
+ * This is the model class for table "pregunta_x_ronda".
  *
- * The followings are the available columns in table 'partido':
+ * The followings are the available columns in table 'pregunta_x_ronda':
  * @property string $id
- * @property string $nombre
+ * @property string $ronda_id
+ * @property string $pregunta_id
  * @property string $fecha
  * @property integer $estado
  *
  * The followings are the available model relations:
- * @property Pregunta[] $preguntas
- * @property Ronda[] $rondas
+ * @property Ronda $ronda
+ * @property Pregunta $pregunta
  */
-class Partido extends CActiveRecord
+class PreguntaXRonda extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Partido the static model class
+	 * @return PreguntaXRonda the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +31,7 @@ class Partido extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'partido';
+		return 'pregunta_x_ronda';
 	}
 
 	/**
@@ -41,13 +42,13 @@ class Partido extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, fecha, estado', 'required'),
+			array('ronda_id, pregunta_id, fecha, estado', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
-			array('nombre', 'length', 'max'=>100),
+			array('ronda_id, pregunta_id', 'length', 'max'=>10),
 			array('fecha', 'length', 'max'=>19),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nombre, fecha, estado', 'safe', 'on'=>'search'),
+			array('id, ronda_id, pregunta_id, fecha, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,8 +60,8 @@ class Partido extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'preguntas' => array(self::HAS_MANY, 'Pregunta', 'partido_id'),
-			'rondas' => array(self::HAS_MANY, 'Ronda', 'partido_id'),
+			'ronda' => array(self::BELONGS_TO, 'Ronda', 'ronda_id'),
+			'pregunta' => array(self::BELONGS_TO, 'Pregunta', 'pregunta_id'),
 		);
 	}
 
@@ -71,7 +72,8 @@ class Partido extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'nombre' => 'Nombre',
+			'ronda_id' => 'Ronda',
+			'pregunta_id' => 'Pregunta',
 			'fecha' => 'Fecha',
 			'estado' => 'Estado',
 		);
@@ -89,21 +91,13 @@ class Partido extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('ronda_id',$this->ronda_id,true);
+		$criteria->compare('pregunta_id',$this->pregunta_id,true);
 		$criteria->compare('fecha',$this->fecha,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	public function verificar_partido( $partido_id )
-	{
-		$partido = $this->findByPk($partido_id);
-		if($partido)
-			return $partido->id;
-		else
-			return false;
 	}
 }

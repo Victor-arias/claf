@@ -4,10 +4,14 @@
 		<p>Aqui van las instrucciones</p>
 	</div>
 	<div class="col-md-4">
-		<p>Partido <span class="partido_numero">#</span></p>
-		<p><a href="jugar">Jugar</a>
+		<p class="partido">Partido <?php echo $partido_id;?></p>
+		<p><?php echo CHtml::link('Jugar', array('/jugar?partido=' . $partido_id) )?></p>
 		<div>
-			Ver partidos anteriores
+			<ul>
+			<?php foreach($partidos as $partido): ?>
+				<li><?php echo CHtml::link($partido->nombre, array('instrucciones?partido=' . $partido_id) )?></li>
+			<?php endforeach; ?>
+			</ul>
 		</div>
 	</div>
 </div>
