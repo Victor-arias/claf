@@ -157,11 +157,32 @@ class JugarController extends Controller
 	    	}
 	    	else
 	    	{
-	    		if( $this->_nivel < 4){
-	    			$tmpsituacion = 5; //5. Cambio de nivel	
-	    			$newnivel = Nivel::model()->findByPk($this->_nivel + 1);
-	    			Yii::app()->session['nivel'] = $this->_nivel = $this->_nivel + 1;
-	    		}else{
+	    		if( $this->_nivel < 3){
+	    			if( $this->_nivel == 3)
+		    		{
+		    			$partido = Partido::model()->findByPk($this->_partido_id);
+		    			$hoy = mktime(0, 0, 0, date('n'), date('j'), date('Y'));
+		    			if($hoy == $partido->fecha)
+		    			{
+		    				$tmpsituacion = 5; //5. Cambio de nivel	
+			    			$newnivel = Nivel::model()->findByPk($this->_nivel + 1);
+			    			Yii::app()->session['nivel'] = $this->_nivel = $this->_nivel + 1;
+		    			}
+		    			else
+		    			{
+		    				$tmpsituacion = 6; //6. Ronda completada
+		    			}
+		    		}
+		    		else
+		    		{
+		    			$tmpsituacion = 5; //5. Cambio de nivel	
+		    			$newnivel = Nivel::model()->findByPk($this->_nivel + 1);
+		    			Yii::app()->session['nivel'] = $this->_nivel = $this->_nivel + 1;	
+		    		}
+	    			
+	    		}
+	    		else
+	    		{
 	    			$tmpsituacion = 6; //6. Ronda completada
 	    		}
 	    			
@@ -202,7 +223,7 @@ class JugarController extends Controller
 		Obtengo una pregunta del nivel no resuelta
 		Retorno un objeto con una pregunta y sus respuestas
 		*/
-		
+
 		$pregunta = new Pregunta;
 		$resultado = $pregunta->obtener_pregunta($this->_partido_id, $this->_nivel, $pregunta_id);
 		if( in_array($resultado['pregunta']->id, $this->_preguntas ) )
@@ -225,6 +246,15 @@ class JugarController extends Controller
 			}
 
 			$pt = Jugador::model()->getPuntos( $this->_jugador_id );
+
+			//Verifico si ya jugó el partido solicitado
+			$verificar = Ronda::model()->findByAttributes( array('jugador_id' => $this->_jugador_id, 'partido_id' => $this->_partido_id) );
+			if($verificar)
+			{
+				Yii::app()->user->setFlash('error', "Ya has jugado este partido");
+				$this->redirect('puntajes');
+				Yii::app()->end();
+			}
 
 			$ronda = new Ronda;
 			Yii::app()->session['ronda'] 		= $this->_ronda 	= $ronda->iniciarRonda( $this->_jugador_id, $this->_partido_id );
