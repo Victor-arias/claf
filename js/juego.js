@@ -46,7 +46,8 @@ $(function() {
 	function cargar_pregunta(e)
 	{
 		$.post('jugar/cargarpregunta', mostrar_pregunta);
-		e.preventDefault();
+		if(e)
+			e.preventDefault();
 	}//cargar_pregunta
 
 	function control()
@@ -119,13 +120,13 @@ $(function() {
 				mb.addClass('mb-cp');
 				break;
 			case 4: //incorrecto
-				mp.html('<h3>¡Esta no era la respuesta!</h3><p>Ha terminado esta ronda</p>');
+				mp.html('<h3>¡Esta no era la respuesta!</h3>');
 				mb.text('Salir de esta ronda');
 				mb.attr('href', 'puntajes');
 				break;
 			case 5:
-				mp.html('<h3>¡La respuesta es correcta, además avanzas al siguiente nivel!</h3>');
-				mb.text('Ir a la pregunta del siguiente nivel');
+				mp.html('<h3>¡La respuesta es correcta!</h3>');
+				mb.text('Ir a la siguiente pregunta');
 				mb.addClass('mb-cp');
 				break;
 			case 6:

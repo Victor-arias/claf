@@ -4,6 +4,6 @@
 $this->pageTitle = Yii::app()->name;
 ?>
 <div id="content">
-	<?php echo CHtml::link('Regístrate', array('/registro') )?>
-	<?php echo CHtml::link('Iniciar sesión', array('/iniciar-sesion'))?>
+	<?php echo CHtml::link('Registrate', array('/registro') )?>
+	<?php echo CHtml::link('Inicia sesión', array('/iniciar-sesion'))?>
 </div>

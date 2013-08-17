@@ -140,13 +140,9 @@ class Pregunta extends CActiveRecord
 		$pcriteria->addCondition('partido_id='.$partido_id);
 		$pcriteria->limit 		= 1;
 	
-		$pregunta = $this->findAll($pcriteria);
-		if(isset($pregunta[0]))
-			 $pregunta = $pregunta[0];
-		else
-		{
+		$pregunta = $this->find($pcriteria);
+		if(!$pregunta)
 			$pregunta = $this->pregunta_siguiente($partido_id, $nivel);
-		}
 
 		return $pregunta;
 	}

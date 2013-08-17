@@ -15,6 +15,7 @@ $activeform = $this->beginWidget('CActiveForm', array(
 	'focus'=>array($usuario,'correo'),
 ));
 ?>
+<p>Para participar en el concurso Me visto de Antioquia, debes llenar todos los siguientes datos. Ten en cuenta que tu correo electrónico será tu usuario para ingresar y participar.</p>
 
 <?php echo $activeform->errorSummary(array($usuario, $jugador), '', '', array('class' => 'flash-notice')); ?>
 
@@ -136,10 +137,11 @@ $activeform = $this->beginWidget('CActiveForm', array(
 		<div class="controls">			
 			<p class="help-inline"><?php echo $activeform->error($jugador,'suscripcion'); ?></p>
 		</div>
-	</div>	
+	</div>
+	<p>AGREGAR ACEPTAR TÉRMINOS Y CONDICIONES</p>	
 </fieldset>
 <div class="row buttons submit">
-	<?php echo CHtml::submitButton('Registro', array('class'=>'btn')); ?>
+	<?php echo CHtml::submitButton('Registrarse', array('class'=>'btn')); ?>
 </div>
 
 <?php $this->endWidget(); ?>

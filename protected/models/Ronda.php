@@ -111,6 +111,9 @@ class Ronda extends CActiveRecord
 
 	public function iniciarRonda($jugador_id, $partido_id)
 	{
+		$existe = $this->findByAttributes( array('jugador_id' => $jugador_id, 'partido_id' => $partido_id) );
+		if($existe) return false;
+
 		$this->jugador_id = $jugador_id;
 		$this->partido_id = $partido_id;
 		$this->preguntas = 0;
@@ -121,7 +124,6 @@ class Ronda extends CActiveRecord
 		$this->save();
 
 		return $this->getPrimaryKey();
-
 	}
 
 	public function getRondasDia($jugador_id)
