@@ -97,10 +97,10 @@ $activeform = $this->beginWidget('CActiveForm', array(
 		</div>
 	</div>	
 	<div class="control-group">
-		<?php echo $activeform->labelEx($jugador,'barrio', array('class'=>'control-label','for'=>'celular')); ?>
+		<?php echo $activeform->labelEx($jugador,'barrio_id', array('class'=>'control-label','for'=>'celular')); ?>
 		<div class="controls">
-			<?php echo $activeform->dropDownList($jugador,'barrio', CHtml::listData(Barrio::model()->findAll(), 'id', 'nombre') ); ?>
-			<p class="help-inline"><?php echo $activeform->error($jugador,'barrio'); ?></p>
+			<?php echo $activeform->dropDownList($jugador,'barrio_id', CHtml::listData(Barrio::model()->findAll(), 'id', 'nombre') ); ?>
+			<p class="help-inline"><?php echo $activeform->error($jugador,'barrio_id'); ?></p>
 		</div>
 	</div>		
 	<div class="control-group">
@@ -118,10 +118,10 @@ $activeform = $this->beginWidget('CActiveForm', array(
 		</div>
 	</div>
 	<div class="control-group">
-		<?php echo $activeform->labelEx($jugador,'ocupacion', array('class'=>'control-label','for'=>'ocupacion')); ?>
+		<?php echo $activeform->labelEx($jugador,'ocupacion_id', array('class'=>'control-label','for'=>'ocupacion')); ?>
 		<div class="controls">
-			<?php echo $activeform->dropDownList($jugador,'ocupacion',CHtml::listData(Ocupacion::model()->findAll(), 'id', 'nombre')); ?>
-			<p class="help-inline"><?php echo $activeform->error($jugador,'ocupacion'); ?></p>
+			<?php echo $activeform->dropDownList($jugador,'ocupacion_id',CHtml::listData(Ocupacion::model()->findAll(), 'id', 'nombre')); ?>
+			<p class="help-inline"><?php echo $activeform->error($jugador,'ocupacion_id'); ?></p>
 		</div>
 	</div>
 	<div class="control-group">

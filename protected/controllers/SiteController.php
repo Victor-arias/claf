@@ -107,32 +107,51 @@ class SiteController extends Controller
 	{
 		$usuario = new Usuario;
 		$jugador = new Jugador;
-
+		//var_dump($_POST['Jugador']); die();
 		if(isset($_POST['Usuario'], $_POST['Jugador']))
 		{
+			$objUsuario = new Usuario();
+			$transaction = $objUsuario->dbConnection->beginTransaction();
+
 			$usuario->attributes = $_POST['Usuario'];
-        	$jugador->attributes = $_POST['Jugador'];
+			
+        	$jugador->attributes = $_POST['Jugador'];        	
 
-        	$valid = false;
-        	if($usuario->validate() && $jugador->validate())
-        		$valid = true;
+			$usuario->llave_activacion = md5(time());
+			$usuario->estado = "1";
+			$usuario->es_admin = "0";	        	
 
-        	if($valid)
-	        {
+        	$validUser = false;
+
+        	if($usuario->validate())
+        		$validUser = true;
+        	else
+        		$transaction->rollback();
+
+        	if($validUser)
+	        {				
 	            $usuario->save(false);
 	            $jugador->usuario_id = $usuario->id;
-	            $jugador->save(false);
+	            
+	            $validPlayer = false;
+	            
+	            if($jugador->validate())
+	            	$validPlayer = true;
+		        else
+		        	$transaction->rollback();	            
 
-	            $datos = array(	'nombre' 			=> $jugador->nombre,
-	            				'nombre_adulto'		=> $jugador->nombre_adulto,
-	            				'correo' 			=> $usuario->correo,
-	            				'correo_adulto'		=> $jugador->correo_adulto,
-	            				'llave_activacion' 	=> $usuario->llave_activacion
-	            				);
+	            if($validPlayer){
+		            $jugador->save(false);
+					$transaction->commit();
+		            $datos = array(	'nombre' 			=> $jugador->nombre,
+		            				'correo' 			=> $usuario->correo,
+		            				'llave_activacion' 	=> $usuario->llave_activacion
+		            				);
 
-	            $this->verificarCorreo($datos);
+		            $this->verificarCorreo($datos);
 
-	            Yii::app()->end();
+		            Yii::app()->end();
+	            }
 	        }
 		}
 
@@ -217,21 +236,11 @@ class SiteController extends Controller
         $mnino->setView('verificar-correo');
         $mnino->setData( array('datos' => $datos) );
         $mnino->render();
-		$mnino->Subject    = 'Verifica tu registro en el concurso Viaja a Suiza con Medellín 2018';
+		$mnino->Subject    = 'Registro ';
         $mnino->AddAddress($datos['correo']);
         $mnino->From = 'contacto@concursomedellin2018.com';
         $mnino->FromName = 'Concurso Medellín 2018';  
         $mnino->Send();
-
-        $madulto           = new YiiMailer();
-        $madulto->setView('notificacion-adulto');
-        $madulto->setData( array('datos' => $datos) );
-        $madulto->render();
-        $madulto->Subject  = strtok($datos['nombre'], ' ') . ' te inscribió como adulto responsable en el concurso Viaja a Suiza con Medellín 2018';
-        $madulto->AddAddress($datos['correo_adulto']);
-        $madulto->From = 'contacto@concursomedellin2018.com';
-        $madulto->FromName = 'Concurso Medellín 2018';
-        $madulto->Send();
         
         $this->render('verificar_correo', array('datos' => $datos) );
                

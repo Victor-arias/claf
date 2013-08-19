@@ -40,6 +40,7 @@ class Usuario extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('correo, password, llave_activacion, estado, es_admin', 'required'),
+			array('correo', 'email', 'message'=>"El {attribute} No tiene un formato válido"),			// 
 			array('estado, es_admin', 'numerical', 'integerOnly'=>true),
 			array('correo', 'length', 'max'=>100),
 			array('password, llave_activacion', 'length', 'max'=>255),

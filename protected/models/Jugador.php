@@ -56,7 +56,7 @@ class Jugador extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usuario_id, nombre, apellido, sexo, tipo_documento, documento, fecha_nacimiento, telefono, celular, barrio_id, nivel_educacion, ocupacion_id, fecha_registro, puntaje, suscripcion', 'required'),
+			array('usuario_id, nombre, apellido, sexo, tipo_documento, documento, fecha_nacimiento, telefono, celular, barrio_id, nivel_educacion, ocupacion_id, suscripcion', 'required'),
 			array('tipo_documento, nivel_educacion, suscripcion', 'numerical', 'integerOnly'=>true),
 			array('usuario_id, barrio_id, ocupacion_id, puntaje', 'length', 'max'=>10),
 			array('nombre, apellido', 'length', 'max'=>100),
@@ -191,7 +191,8 @@ class Jugador extends CActiveRecord
         {
         	$this->fecha_registro = date('Y-m-d H:i:s');
         	$this->puntaje = 0;	
-        }else
+        }
+        else
         {
         	$this->fecha_actualizacion = date('Y-m-d H:i:s');
         }
