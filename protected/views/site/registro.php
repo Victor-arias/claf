@@ -17,16 +17,25 @@ $activeform = $this->beginWidget('CActiveForm', array(
 ?>
 
 <?php echo $activeform->errorSummary(array($usuario, $jugador), '', '', array('class' => 'flash-notice')); ?>
-
-<div id="subtitulo">
-	<h2>Datos de acceso</h2>
-	<p>Recuerda muy bien estos datos, porque los necesitarás para poder comenzar a jugar</p>
-</div>
-
-<p>Datos de acceso</p>
-<p>Recuerda muy bien estos datos, porque los necesitarás para poder comenzar a jugar</p>
 <fieldset>
-	<legend>Datos personales</fieldset>
+	<legend>Datos de acceso</legend>
+	<div class="control-group">
+		<?php echo $activeform->labelEx($usuario,'correo', array('class'=>'control-label','for'=>'correo')); ?>
+		<div class="controls">
+			<?php echo $activeform->textField($usuario,'correo',array('size'=>60,'maxlength'=>100, 'placeholder' => 'Ingrese su correo electrónico')); ?>
+			<p class="help-inline"><?php echo $activeform->error($usuario,'correo'); ?></p>
+		</div>
+	</div>
+	<div class="control-group">
+		<?php echo $activeform->labelEx($usuario,'password', array('class'=>'control-label','for'=>'password')); ?>
+		<div class="controls">
+			<?php echo $activeform->passwordField($usuario, "password", array('size'=>60,'maxlength'=>100, 'placeholder' => 'Ingrese una contraseña')) ?>
+			<p class="help-inline"><?php echo $activeform->error($usuario,'password'); ?></p>
+		</div>
+	</div>	
+</fieldset>
+<fieldset>
+	<legend>Datos personales</legend>
 	<div class="control-group">
 		<?php echo $activeform->labelEx($jugador,'nombre', array('class'=>'control-label','for'=>'nombre')); ?>
 		<div class="controls">
@@ -72,13 +81,6 @@ $activeform = $this->beginWidget('CActiveForm', array(
 </fieldset>
 <fieldset>
 	<legend>Información de contacto</legend>
-	<div class="control-group">
-		<?php echo $activeform->labelEx($usuario,'correo', array('class'=>'control-label','for'=>'correo')); ?>
-		<div class="controls">
-			<?php echo $activeform->textField($usuario,'correo',array('size'=>60,'maxlength'=>100, 'placeholder' => 'Ingrese su correo electrónico')); ?>
-			<p class="help-inline"><?php echo $activeform->error($usuario,'correo'); ?></p>
-		</div>
-	</div>
 	<div class="control-group">
 		<?php echo $activeform->labelEx($jugador,'telefono', array('class'=>'control-label','for'=>'telefono')); ?>
 		<div class="controls">
@@ -128,8 +130,6 @@ $activeform = $this->beginWidget('CActiveForm', array(
 			<p class="help-inline"><?php echo $activeform->error($jugador,'otra_ocupacion'); ?></p>
 		</div>
 	</div>	
-</fieldset>
-<fieldset>
 	<div class="control-group">
 		<?php echo $activeform->checkBox($jugador,'suscripcion'); ?>
 		<?php echo $activeform->labelEx($jugador,'suscripcion', array('class'=>'control-label','for'=>'suscripcion')); ?>
