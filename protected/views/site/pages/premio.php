@@ -1,23 +1,14 @@
 <?php
 /* @var $this SiteController */
 
-$this->pageTitle=Yii::app()->name . ' - ¿Qué incluye el premio?';
+$this->pageTitle=Yii::app()->name . ' - Premio';
 ?>
 <div id="content-premio">
-	<h1>¿Qué te puedes ganar?</h1>
-	<p>Podrás ganarte un viaje a Suiza del 30 junio al 6 de julio</p>
-	<h2>El premio incluye</h2>
-	<ul>
-		<li>Gastos de visado</li>
-		<li>Seguro de viaje</li>
-		<li>Tíquetes aéreos ida y regreso (Medellín - Ginebra - Medellín)</li>
-		<li>Transporte interno en Suiza</li>
-		<li>Alimentación</li>
-		<li>Hospedaje</li>
-	</ul>
-	<h2>No incluye</h2>
-	<ul>
-		<li>Trámites de pasaporte</li>
-		<li>Gastos no especificados</li>
-	</ul>
+	<h1>PLAN DE PREMIOS</h1>
+	<p><strong>PRIMER PUESTO:</strong> Camiseta  de Selección Antioquia + Camiseta de Celtic + Balón de Celtic + Cámara Digital</p>
+	<p><strong>SEGUNDO PUESTO:</strong> Camiseta  de Selección Antioquia + Camiseta de Celtic + Balón de Celtic</p>
+	<p><strong>TERCER PUESTO: </strong> Camiseta  de Selección Antioquia + Camiseta de Celtic + Balón de La Liga Antioqueña de Fútbol</p>
+	<p><strong>CUARTO PUESTO:</strong> Camiseta  de Selección Antioquia + Balón de La Liga Antioqueña de Fútbol</p>
+	<p><strong>QUINTO PUESTO:</strong> Balón de La Liga Antioqueña de Fútbol + Gorra de Liga Antioqueña de Fútbol</p>
+	<p><strong>SEXTO AL DÉCIMO PUESTO:</strong> Balón de Alianza Liga Antioqueña de Fútbol y Telemedellín + Souvenir Telemedellín </p>
 </div>

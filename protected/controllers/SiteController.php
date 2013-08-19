@@ -49,11 +49,19 @@ class SiteController extends Controller
 			$partido = Partido::model()->find( array('order' => 'fecha DESC') );
 			$partido_id = $partido->id;
 		}
+
+		$jugador_id =  /*Yii::app()->user->id*/1;
+		
+		//Verifico si ya jugó el partido solicitado
+		$verificar = Ronda::model()->findByAttributes( array('jugador_id' => $jugador_id, 'partido_id' => $partido_id) );
+		$puntos = ($verificar) ? $verificar->puntos : 0;
+
 		$partidos = Partido::model()->findAll();
 		
 		$this->render('instrucciones', array(
-				'partidos' => $partidos,
-				'partido_id'  => $partido_id
+				'partidos' 	=> $partidos,
+				'partido_id'=> $partido_id,
+				'puntos'	=> $puntos,
 			)
 		);
 	}

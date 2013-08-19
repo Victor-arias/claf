@@ -177,11 +177,10 @@ class Jugador extends CActiveRecord
 		 
 		 $c = new CDbCriteria;
 		 $c->addCondition('puntaje > 0');
-		 $c->limit = 10;
+		 $c->limit = 20;
 		 $c->order = 'puntaje DESC';
-		 $ninos = $this->findAllByAttributes(array('sexo' => 'M'), $c);
-		 $ninas = $this->findAllByAttributes(array('sexo' => 'F'), $c);
-		 $resultado = array('ninos' => $ninos, 'ninas' => $ninas);
+		 
+		 $resultado = $this->findAll($c);
 		 return $resultado;
 	}
 

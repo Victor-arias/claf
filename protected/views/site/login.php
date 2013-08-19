@@ -40,7 +40,7 @@ $this->pageTitle= 'Iniciar sesión - ' .Yii::app()->name;
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::link('¿Olvidaste la contraseña?', array('/recuperar-contrasena'), array('class' => 'recuperar' )); ?>
+		<?php echo CHtml::link('¿Olvidaste tu contraseña?', array('/recuperar-contrasena'), array('class' => 'recuperar' )); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
