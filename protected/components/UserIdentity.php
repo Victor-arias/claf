@@ -32,7 +32,7 @@ class UserIdentity extends CUserIdentity
 		//print_r($usuario->estado);
 		if($usuario === null)
             $this->errorCode=self::ERROR_USERNAME_INVALID;
-        else if(!$usuario->validatePassword($this->password))
+        else if($usuario->password!==$this->password)
             $this->errorCode=self::ERROR_PASSWORD_INVALID;
         else if($usuario->estado == 0)
             $this->errorCode=self::ERROR_STATUS;

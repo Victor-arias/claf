@@ -2,6 +2,7 @@
 
 class SiteController extends Controller
 {
+	public $user;
 	/**
 	 * Declares class-based actions.
 	 */
@@ -22,8 +23,15 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$idSesion = Yii::app()->user->id;		
+		$objUsuario = new Usuario();
+		$usuario = $objUsuario->findByPk($idSesion);
+		$this->user = $usuario;		
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+		if(!is_null($usuario)){
+			$this->redirect("site/instrucciones");
+		}
 		$this->render('index');
 	}
 
@@ -43,6 +51,12 @@ class SiteController extends Controller
 
 	public function actionInstrucciones()
 	{
+		$idSesion = Yii::app()->user->id;		
+		$objUsuario = new Usuario();
+		$usuario = $objUsuario->findByPk($idSesion);
+		$objUsuario = new Jugador();
+		$usuario = $objUsuario->find("usuario_id = $usuario->id");
+		$this->user = $usuario;			
 		if( isset($_GET['partido']) ) $partido_id = $_GET['partido'];
 		else
 		{
