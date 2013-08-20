@@ -5,6 +5,17 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->getCoreScrip
 Yii::app()->clientScript->registerScript('datepicker', 
 	'$(".datepicker").datepicker({dateFormat: "yy-mm-dd", changeMonth: true, yearRange: "1900:2013", changeYear: true}, $.datepicker.regional[ "es" ]);', 
 	CClientScript::POS_READY);
+Yii::app()->clientScript->registerScript('terminos', 
+	'$("#registrarse").click(function(e){
+		e.preventDefault();
+		if($("#aceptar").attr("checked")) {
+			$("#registro-form").submit();
+		}
+		else{
+			alert("Debes aceptar los Términos y Condiciones");
+		}
+	});', 
+	CClientScript::POS_READY);
 ?>
 <div class="form">
 <?php 
@@ -138,10 +149,10 @@ $activeform = $this->beginWidget('CActiveForm', array(
 			<p class="help-inline"><?php echo $activeform->error($jugador,'suscripcion'); ?></p>
 		</div>
 	</div>
-	<p><input type="checkbox" value="Acepta"/> Acepto los <?php echo CHTML::link( 'términos y condiciones de uso', array('/site/page', 'view' => 'terminos-y-condiciones'), array('class' => 'btn btn-link') ); ?></p>	
+	<p><input type="checkbox" id="aceptar" value="0"/> Acepto los <?php echo CHTML::link( 'términos y condiciones de uso', array('/site/page', 'view' => 'terminos-y-condiciones'), array('class' => 'btn btn-link') ); ?></p>	
 </fieldset>
 <div class="row buttons submit">
-	<?php echo CHtml::submitButton('Registrarse', array('class'=>'btn')); ?>
+	<a href="#" id="registrarse" class="btn">Registrarse</a>
 </div>
 
 <?php $this->endWidget(); ?>
