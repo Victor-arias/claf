@@ -16,12 +16,12 @@
 </head>
 <body>
 <div class="container">
-	<?php echo $this->renderPartial('//layouts/barra_usuario') ?>
+	<?php echo $this->renderPartial('//layouts/_barra_usuario') ?>
 	<?php echo $content; ?>
 	<div class="clear"></div>
 	<footer>
-		<?php echo CHTML::link( 'Términos y condiciones', array('/site/page', 'view' => 'terminos-y-condiciones') ); ?>
-		<?php echo CHTML::link( 'Puntajes', array('/site/puntajes') ); ?>
+		<?php echo CHTML::link( 'Términos y condiciones', array('/site/page', 'view' => 'terminos-y-condiciones'), array('class' => 'btn btn-link') ); ?>
+		<?php echo CHTML::link( 'Puntajes', array('/site/puntajes'), array('class' => 'btn btn-link') ); ?>
 	</footer>
 </div><!-- page -->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>

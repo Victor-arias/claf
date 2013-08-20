@@ -22,14 +22,14 @@
 	<div class="col-md-4">
 		<p class="partido">Partido <?php echo $partido_id;?></p>
 		<?php if( $puntos == 0): ?>
-		<p><?php echo CHtml::link('Jugar', array('/jugar?partido=' . $partido_id) )?></p>
+		<p><?php echo CHtml::link('Jugar', array('/jugar?partido=' . $partido_id), array('class' => 'btn btn-primary btn-lg') )?></p>
 		<?php else: ?>
 			Puntos: <?php echo $puntos ?>
 		<?php endif; ?>
 		<div>
-			<ul>
+			<ul class="list-unstyled">
 			<?php foreach($partidos as $partido): ?>
-				<li><?php echo CHtml::link($partido->nombre, array('instrucciones?partido=' . $partido_id) )?></li>
+				<li><?php echo CHtml::link($partido->nombre, array('instrucciones?partido=' . $partido_id), array('class' => 'btn btn-link') )?></li>
 			<?php endforeach; ?>
 			</ul>
 		</div>
