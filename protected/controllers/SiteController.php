@@ -146,7 +146,7 @@ class SiteController extends Controller
 		//var_dump($_POST['Jugador']); die();
 		if(isset($_POST['Usuario']) AND isset($_POST['Jugador']))
 		{
-			$transaction = $usuario->dbConnection->beginTransaction();
+			//$transaction = $usuario->dbConnection->beginTransaction();
 
 			$usuario->attributes = $_POST['Usuario'];
 			
@@ -156,31 +156,23 @@ class SiteController extends Controller
 			$usuario->estado = 1;
 			$usuario->es_admin = 0;	        	
 			$usuario->password = md5($usuario->password);
-			//$jugador->usuario_id = 0;
+			$jugador->usuario_id = 0;
+			if($usuario->validate() && $jugador->validate()){
+				if($usuario->save()){
+					$jugador->usuario_id = $usuario->id;	            
+		            
+		            if($jugador->save()){
+			            $datos = array(	'nombre' 			=> $jugador->nombre,
+			            				'correo' 			=> $usuario->correo,
+			            				'llave_activacion' 	=> $usuario->llave_activacion
+			            				);
 
-			/*if($usuario->validate() && $jugador->validate()){*/
-	            if(!$usuario->save()){
-	            	$transaction->rollback();	
-	            	Yii::app()->end();   
-	            }
-	            
-	            $jugador->usuario_id = $usuario->id;	            
-	            
-	            if(!$jugador->save()){
-	            	$transaction->rollback();
-	            	Yii::app()->end();
-	            }            	
-	            else{   
-	            	$transaction->commit(); 
-		            $datos = array(	'nombre' 			=> $jugador->nombre,
-		            				'correo' 			=> $usuario->correo,
-		            				'llave_activacion' 	=> $usuario->llave_activacion
-		            				);
-
-		            $this->verificarCorreo($datos);	 
-	        		Yii::app()->end();
-	            }  
-            //}          	        
+			            $this->verificarCorreo($datos);	 
+		        		Yii::app()->end();
+		            }  
+				}
+	       	      
+			}  
 		}
 
 		$this->render('registro', array(
