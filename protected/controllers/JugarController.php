@@ -35,7 +35,7 @@ class JugarController extends Controller
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('jugar', 'cargarpregunta', 'responder', 'control', 'test'),
-				'users'=>array('*'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -240,7 +240,7 @@ class JugarController extends Controller
 			if($this->_jugador_id == 0)
 			{
 				//2. Obtengo el id del jugador
-				$jugador = Jugador::model()->find('usuario_id = ' . /*Yii::app()->user->id*/1);
+				$jugador = Jugador::model()->find('usuario_id = ' . Yii::app()->user->id);
 				$jugador_id = $jugador->id;	
 				Yii::app()->session['jugador_id']	= $this->_jugador_id = $jugador_id;
 			}
@@ -294,6 +294,7 @@ class JugarController extends Controller
 			Yii::app()->session['puntosr'] 		= $this->_puntosr 	= 0;
 			Yii::app()->session['puntost'] 		= $this->_puntost 	= 0;
 			Yii::app()->session['situacion']	= $this->_situacion = 0;
+			Yii::app()->session['jugador_id']	= $this->_jugador_id= 0;
 			/*Yii::app()->session->clear();
 			Yii::app()->session->destroy();*/
 		}

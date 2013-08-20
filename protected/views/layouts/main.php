@@ -20,7 +20,7 @@
 	<div class="clear"></div>
 	<footer>
 		<?php echo CHTML::link( 'Términos y condiciones', array('/site/page', 'view' => 'terminos-y-condiciones') ); ?>
-		<?php echo CHTML::link( 'Puntajes', array('/site/page', 'view' => 'puntajes') ); ?>
+		<?php echo CHTML::link( 'Puntajes', array('/site/puntajes') ); ?>
 	</footer>
 </div><!-- page -->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>

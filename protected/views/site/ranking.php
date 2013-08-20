@@ -7,14 +7,20 @@ $this->pageTitle = 'Ranking - '.Yii::app()->name;
 	<?php if( Yii::app()->user->hasFlash('error') ):?>
 		<div class="flash-notice"><?php echo Yii::app()->user->getFlash('error'); ?></div>
 	<?php endif;?>
-	<div>
-		<p>Puesto</p>
-		<p>Nombre</p>
-		<p class="puntaje">Puntaje</p>
-		<ul>
+	<div class="table-responsive">
+	<table class="table table-striped table-hover table-condensed">
+		<tr>
+			<th>Puesto</th>
+			<th>Nombre</th>
+			<th class="puntaje">Puntaje</th>
+		</tr>
 		<?php $i = 1; foreach($ranking as $puntos): ?>
-			<li><span class="lugar"><?php echo $i; $i++?></span> <?php echo $puntos->nombre ?> <span class="total"><?php echo $puntos->puntaje ?></span></li>
+		<tr>
+			<td class="lugar"><?php echo $i; $i++?></td> 
+			<td><?php echo $puntos->nombre ?></td>
+			<td class="total"><?php echo $puntos->puntaje ?></td>
+		</tr>
 		<?php endforeach; ?>
-		</ul>
+	</table>
 	</div>
 </div>
