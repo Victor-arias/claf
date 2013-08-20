@@ -107,7 +107,7 @@ class Jugador extends CActiveRecord
 			'otra_ocupacion' => 'Otra Ocupacion',
 			'fecha_registro' => 'Fecha Registro',
 			'puntaje' => 'Puntaje',
-			'suscripcion' => 'He leido y acepto los términos y condiciones.',
+			'suscripcion' => 'Quiero recibir información de Telemedellín',
 		);
 	}
 
