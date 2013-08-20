@@ -60,6 +60,7 @@ class Jugador extends CActiveRecord
 			array('tipo_documento, nivel_educacion, suscripcion', 'numerical', 'integerOnly'=>true),
 			array('usuario_id, barrio_id, ocupacion_id, puntaje', 'length', 'max'=>10),
 			array('nombre, apellido', 'length', 'max'=>100),
+			array('documento', 'unique', 'message'=>"El {attribute} {value} Ya se encuentra registrado"),
 			array('sexo', 'length', 'max'=>1),
 			array('documento', 'length', 'max'=>50),
 			array('telefono, celular, otra_ciudad, otra_ocupacion', 'length', 'max'=>45),
