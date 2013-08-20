@@ -19,7 +19,7 @@
 				<table style="display: inline-table; margin:0 auto" border="0" cellpadding="0" cellspacing="0" width="500">
 					<h3>Hola <?php echo $datos['nombre']; ?>, </h3>
 					<p>Este correo se genera automáticamente para confirmar tu inscripción al concurso “Me visto de Antioquia” de Telemedellín.</p>
-					<p>Ya podés comenzar a participar en <?php echo CHtml::link('www.telemedellin.tv', CHtml::normalizeUrl('http://www.telemedellin.tv') ); ?></p>
+					<p>Ya podés comenzar a participar en <?php echo CHtml::link('www.telemedellin.tv', CHtml::normalizeUrl('http://www.telemedellin.tv/canalseleccionantioquia/Paginas/ConcursoMevistodeAntioquia.aspx') ); ?></p>
 				</table>
 				</center>
 			</td>
