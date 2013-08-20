@@ -105,11 +105,11 @@ class Usuario extends CActiveRecord
 		        
         if($this->isNewRecord)
         {
-        	$usuario->password = md5($usuario->password);
+        	$this->password = md5($this->password);
         }
         else
         {
-        	$usuario->password = md5($usuario->password);
+        	$this->password = md5($this->password);
         }
         
     	return true;
