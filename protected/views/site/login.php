@@ -20,19 +20,14 @@ $this->pageTitle= 'Iniciar sesión - ' .Yii::app()->name;
 	<?php echo $form->errorSummary($model, '', '', array('class' => 'flash-notice') ); ?>
 
 
-	<div class="row">
+	<div class="row form-group">
 		<?php echo $form->label($model,'correo'); ?>
-		<?php echo $form->emailField($model,'correo'); ?>
+		<?php echo $form->emailField($model,'correo', array('class' => 'form-control')); ?>
 	</div>
 
-	<div class="row">
+	<div class="row form-group">
 		<?php echo $form->label($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
-	</div>
-
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
+		<?php echo $form->passwordField($model,'password', array('class' => 'form-control')); ?>
 	</div>
 
 	<div class="row buttons">
@@ -40,7 +35,7 @@ $this->pageTitle= 'Iniciar sesión - ' .Yii::app()->name;
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::link('¿Olvidaste tu contraseña?', array('/recuperar-contrasena'), array('class' => 'recuperar' )); ?>
+		<?php echo CHtml::link('¿Olvidaste tu contraseña?', array('/recuperar-contrasena'), array('class' => 'recuperar btn btn-link' )); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

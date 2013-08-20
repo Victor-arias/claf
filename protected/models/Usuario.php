@@ -69,7 +69,7 @@ class Usuario extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'correo' => 'Correo',
-			'password' => 'Password',
+			'password' => 'Contraseña',
 			'llave_activacion' => 'Llave Activacion',
 			'estado' => 'Estado',
 			'es_admin' => 'Es Admin',
