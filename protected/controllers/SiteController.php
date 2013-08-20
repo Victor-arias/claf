@@ -144,7 +144,7 @@ class SiteController extends Controller
 		$usuario = new Usuario;
 		$jugador = new Jugador;
 		//var_dump($_POST['Jugador']); die();
-		if(isset($_POST['Usuario'], $_POST['Jugador']))
+		if(isset($_POST['Usuario']) AND isset($_POST['Jugador']))
 		{
 			$transaction = $usuario->dbConnection->beginTransaction();
 
@@ -153,41 +153,32 @@ class SiteController extends Controller
         	$jugador->attributes = $_POST['Jugador'];        	
 
 			$usuario->llave_activacion = md5(time());
-			$usuario->estado = "1";
-			$usuario->es_admin = "0";	        	
+			$usuario->estado = 1;
+			$usuario->es_admin = 0;	        	
 			$usuario->password = md5($usuario->password);
-        	$validUser = false;
-
-        	if($usuario->validate())
-        		$validUser = true;        		
-
-        	if($validUser)
-	        {				
-	            if(!$usuario->save(false)){
-	            	$transaction->rollback();	
-	            }
-	            $jugador->usuario_id = $usuario->id;
+			
+            if(!$usuario->save(false)){
+            	$transaction->rollback();	
+            	Yii::app()->end();   
+            }
+            else{
+	            $jugador->usuario_id = $usuario->id;	            
 	            
-	            $validPlayer = false;
-	            
-	            if($jugador->validate())
-	            	$validPlayer = true;            
-
-	            if($validPlayer){
-		            if(!$jugador->save(false)){
-		            	$transaction->rollback();
-		            }
-					
+	            if(!$jugador->save(false)){
+	            	$transaction->rollback();
+	            	Yii::app()->end();
+	            }            	
+	            else{
+	        		$transaction->commit();    	
 		            $datos = array(	'nombre' 			=> $jugador->nombre,
 		            				'correo' 			=> $usuario->correo,
 		            				'llave_activacion' 	=> $usuario->llave_activacion
 		            				);
 
-		            $this->verificarCorreo($datos);
-		            $transaction->commit();
-		            Yii::app()->end();
-	            }	            
-	        }
+		            $this->verificarCorreo($datos);	        		
+		            Yii::app()->end();   
+	            }            	
+            }         
 		}
 
 
