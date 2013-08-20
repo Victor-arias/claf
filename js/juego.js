@@ -117,17 +117,18 @@ $(function() {
 			case 3: //correcto
 				mp.html('<h3>¡La respuesta es correcta!</h3>');
 				mb.text('Ir a la siguiente pregunta');
-				mb.addClass('mb-cp');
+				mb.addClass('mb-cp btn btn-info');
 				break;
 			case 4: //incorrecto
 				mp.html('<h3>¡Esta no era la respuesta!</h3>');
 				mb.text('Salir de esta ronda');
 				mb.attr('href', 'puntajes');
+				mb.addClass('mb-cp btn btn-danger');
 				break;
 			case 5:
 				mp.html('<h3>¡La respuesta es correcta!</h3>');
 				mb.text('Ir a la siguiente pregunta');
-				mb.addClass('mb-cp');
+				mb.addClass('mb-cp btn btn-success');
 				break;
 			case 6:
 				mp.html('<h3>¡Felicitaciones, has terminado esta ronda!</h3>');

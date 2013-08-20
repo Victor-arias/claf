@@ -27,9 +27,9 @@
 			Puntos: <?php echo $puntos ?>
 		<?php endif; ?>
 		<div>
-			<ul class="list-unstyled">
+			<ul class="list-group">
 			<?php foreach($partidos as $partido): ?>
-				<li><?php echo CHtml::link($partido->nombre, array('instrucciones?partido=' . $partido_id), array('class' => 'btn btn-link') )?></li>
+				<li class="list-group-item"><?php echo CHtml::link($partido->nombre, array('instrucciones?partido=' . $partido_id), array('class' => 'btn btn-link') )?></li>
 			<?php endforeach; ?>
 			</ul>
 		</div>
