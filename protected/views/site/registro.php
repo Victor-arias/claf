@@ -11,7 +11,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 $activeform = $this->beginWidget('CActiveForm', array(
 	"htmlOptions"=>array("class"=>"form-horizontal"),		
 	'id'=>'registro-form',
-	'enableAjaxValidation'=>true,
+	'enableAjaxValidation'=>false,
 	'focus'=>array($usuario,'correo'),
 ));
 ?>
@@ -138,7 +138,7 @@ $activeform = $this->beginWidget('CActiveForm', array(
 			<p class="help-inline"><?php echo $activeform->error($jugador,'suscripcion'); ?></p>
 		</div>
 	</div>
-	<p>AGREGAR ACEPTAR TÉRMINOS Y CONDICIONES</p>	
+	<p><input type="checkbox" value="Acepta"/> Acepto los <?php echo CHTML::link( 'términos y condiciones de uso', array('/site/page', 'view' => 'terminos-y-condiciones'), array('class' => 'btn btn-link') ); ?></p>	
 </fieldset>
 <div class="row buttons submit">
 	<?php echo CHtml::submitButton('Registrarse', array('class'=>'btn')); ?>

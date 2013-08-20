@@ -147,7 +147,6 @@ class SiteController extends Controller
 		if(isset($_POST['Usuario']) AND isset($_POST['Jugador']))
 		{
 			//$transaction = $usuario->dbConnection->beginTransaction();
-
 			$usuario->attributes = $_POST['Usuario'];
 			
         	$jugador->attributes = $_POST['Jugador'];        	
