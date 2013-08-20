@@ -41,6 +41,7 @@ class Usuario extends CActiveRecord
 		return array(
 			array('correo, password, llave_activacion, estado, es_admin', 'required'),
 			array('correo', 'email', 'message'=>"El {attribute} No tiene un formato válido"),			// 
+			array('correo', 'unique', 'message'=>"El {attribute} {value} Ya se encuentra registrado"),
 			array('estado, es_admin', 'numerical', 'integerOnly'=>true),
 			array('correo', 'length', 'max'=>100),
 			array('password, llave_activacion', 'length', 'max'=>255),

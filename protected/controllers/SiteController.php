@@ -156,31 +156,32 @@ class SiteController extends Controller
 			$usuario->estado = 1;
 			$usuario->es_admin = 0;	        	
 			$usuario->password = md5($usuario->password);
-			
-            if(!$usuario->save(false)){
-            	$transaction->rollback();	
-            	Yii::app()->end();   
-            }
-            else{
+			//$jugador->usuario_id = 0;
+
+			/*if($usuario->validate() && $jugador->validate()){*/
+	            if(!$usuario->save()){
+	            	$transaction->rollback();	
+	            	Yii::app()->end();   
+	            }
+	            
 	            $jugador->usuario_id = $usuario->id;	            
 	            
-	            if(!$jugador->save(false)){
+	            if(!$jugador->save()){
 	            	$transaction->rollback();
 	            	Yii::app()->end();
 	            }            	
-	            else{
-	        		$transaction->commit();    	
+	            else{   
+	            	$transaction->commit(); 
 		            $datos = array(	'nombre' 			=> $jugador->nombre,
 		            				'correo' 			=> $usuario->correo,
 		            				'llave_activacion' 	=> $usuario->llave_activacion
 		            				);
 
-		            $this->verificarCorreo($datos);	        		
-		            Yii::app()->end();   
-	            }            	
-            }         
+		            $this->verificarCorreo($datos);	 
+	        		Yii::app()->end();
+	            }  
+            //}          	        
 		}
-
 
 		$this->render('registro', array(
 				'usuario' => $usuario,
@@ -257,7 +258,6 @@ class SiteController extends Controller
 
 	private function verificarCorreo($datos)
     {   
-
 		$mnino             = new YiiMailer();
         $mnino->setView('verificar-correo');
         $mnino->setData( array('datos' => $datos) );
