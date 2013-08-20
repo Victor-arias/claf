@@ -103,7 +103,7 @@ class JugarController extends Controller
 							'pt' => $this->_puntost );
 		header('Content-Type: application/json; charset="UTF-8"');
 	    echo CJSON::encode( $respuesta );
-	    if($this->_situacion == 6 || $this->_situacion == 4) $this->limpiar_sesion();
+	    if($this->_situacion == 6) $this->limpiar_sesion();
 	    Yii::app()->end();
 	}
 
@@ -125,84 +125,78 @@ class JugarController extends Controller
     	$pxr->ronda_id 		= $this->_ronda;
     	$pxr->pregunta_id 	= $this->_preguntaid;
     	$pxr->fecha 		= time();
-    	$pxr->estado 		= 1;
+    	$pxr->estado 		= ($r->es_correcto)?1:0;
     	$pxr->save();
-	    
+
+    	$nivel = Nivel::model()->findByPk($this->_nivel);
+	    $ronda = Ronda::model()->findByPk($this->_ronda);
+
 	    if($r->es_correcto)
 	    {
-	    	
-	    	$nivel = Nivel::model()->findByPk($this->_nivel);
-	    	$ronda = Ronda::model()->findByPk($this->_ronda);
-
 	    	$puntosr = ($ronda->puntos + $nivel->puntos);
-	    	
-	    		
-	    	$a = array(
-					'preguntas' => $this->_preguntan, 
-					'puntos' 	=> $puntosr
-				);
-	    	    	
-	    	$ronda->updateByPk($this->_ronda, $a);
-
-	    	Yii::app()->session['preguntaid'] 	= $this->_preguntaid = 0;
-	    	Yii::app()->session['puntosr'] 		= $this->_puntosr 	 = $puntosr;
-
 	    	//Sumo puntos
 			$pt = Jugador::model()->setPuntos( $nivel->puntos, $this->_jugador_id );
 	    	if($pt) Yii::app()->session['puntost'] = $this->_puntost = $pt;
-
-	    	if( $this->_preguntan < (Yii::app()->params['preguntasxnivel'] * $this->_nivel) )
-	    	{
-	    		$tmpsituacion = 3; //3. Respuesta correcta
-	    	}
-	    	else
-	    	{
-	    		if( $this->_nivel < 3){
-	    			if( $this->_nivel == 3)
-		    		{
-		    			$partido = Partido::model()->findByPk($this->_partido_id);
-		    			$hoy = mktime(0, 0, 0, date('n'), date('j'), date('Y'));
-		    			if($hoy == $partido->fecha)
-		    			{
-		    				$tmpsituacion = 5; //5. Cambio de nivel	
-			    			$newnivel = Nivel::model()->findByPk($this->_nivel + 1);
-			    			Yii::app()->session['nivel'] = $this->_nivel = $this->_nivel + 1;
-		    			}
-		    			else
-		    			{
-		    				$tmpsituacion = 6; //6. Ronda completada
-		    			}
-		    		}
-		    		else
-		    		{
-		    			$tmpsituacion = 5; //5. Cambio de nivel	
-		    			$newnivel = Nivel::model()->findByPk($this->_nivel + 1);
-		    			Yii::app()->session['nivel'] = $this->_nivel = $this->_nivel + 1;	
-		    		}
-	    			
-	    		}
-	    		else
-	    		{
-	    			$tmpsituacion = 6; //6. Ronda completada
-	    		}
-	    			
-	    	}
-	    	
-	    	$situacion = $tmpsituacion;
+	    	$tmpsituacion = 3; //3. Respuesta correcta
 	    }
 	    else
 	    {
-	    	$situacion = 4;//4. Respuesta mala
-	    	$nivel = Nivel::model()->findByPk($this->_nivel);
-			$ronda = Ronda::model()->findByPk($this->_ronda);
 	    	$puntosr = $ronda->puntos;
-	    	$a = array(
-					'preguntas' => $this->_preguntan, 
-					'puntos' 	=> $puntosr
-				);
-	    	    	
-	    	$ronda->updateByPk($this->_ronda, $a);
+	    	$tmpsituacion = 4; //4. Respuesta incorrecta
 	    }
+    		
+
+	    $a = array(
+			'preguntas' => $this->_preguntan, 
+			'puntos' 	=> $puntosr
+		);
+
+		$ronda->updateByPk($this->_ronda, $a);
+
+		Yii::app()->session['preguntaid'] 	= $this->_preguntaid = 0;
+	    Yii::app()->session['puntosr'] 		= $this->_puntosr 	 = $puntosr;
+
+	    if( $this->_preguntan < (Yii::app()->params['preguntasxnivel'] * $this->_nivel) )
+    	{
+    		if( $this->_nivel < 4){
+    			if( $this->_nivel == 3)
+	    		{
+	    			$partido = Partido::model()->findByPk($this->_partido_id);
+	    			$hoy = mktime(0, 0, 0, date('n'), date('j'), date('Y'));
+	    			if($hoy == $partido->fecha)
+	    			{
+	    				if($r->es_correcto)
+	    					$tmpsituacion = 5; //5. Cambio de nivel	
+	    				else
+	    					$tmpsituacion = 4;
+		    			$newnivel = Nivel::model()->findByPk($this->_nivel + 1);
+		    			Yii::app()->session['nivel'] = $this->_nivel = $this->_nivel + 1;
+	    			}
+	    			else
+	    			{
+	    				$tmpsituacion = 6; //6. Ronda completada
+	    			}
+	    		}
+	    		else
+	    		{
+	    			if($r->es_correcto)
+	    					$tmpsituacion = 5; //5. Cambio de nivel	
+	    				else
+	    					$tmpsituacion = 4;	
+	    			$newnivel = Nivel::model()->findByPk($this->_nivel + 1);
+	    			Yii::app()->session['nivel'] = $this->_nivel = $this->_nivel + 1;	
+	    		}
+    			
+    		}
+    		else
+    		{
+    			$tmpsituacion = 6; //6. Ronda completada
+    		}
+	    			
+    	}
+    	
+    	$situacion = $tmpsituacion;
+   	
 
 	    Yii::app()->session['situacion'] = $this->_situacion = $situacion;
 
@@ -212,7 +206,7 @@ class JugarController extends Controller
 								'pn' => $this->_preguntan,
 								'pr' => $this->_puntosr,
 								'pt' => $this->_puntost ) );
-	    if($this->_situacion == 6 || $this->_situacion == 4) $this->limpiar_sesion();
+	    if($this->_situacion == 6) $this->limpiar_sesion();
 	    Yii::app()->end();
 
 	}//responder

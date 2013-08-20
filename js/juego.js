@@ -121,9 +121,8 @@ $(function() {
 				break;
 			case 4: //incorrecto
 				mp.html('<h3>¡Esta no era la respuesta!</h3>');
-				mb.text('Salir de esta ronda');
-				mb.attr('href', 'puntajes');
-				mb.addClass('mb-cp btn btn-danger');
+				mb.text('Ir a la siguiente pregunta');
+				mb.addClass('mb-cp btn btn-info');
 				break;
 			case 5:
 				mp.html('<h3>¡La respuesta es correcta!</h3>');

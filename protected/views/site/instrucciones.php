@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-8"> 
+	<div class="col-md-8 col-sm-8"> 
 		<h2>Instrucciones</h2>
 		<p>Entre el 20 y el 26 de agosto la selección Antioquia de fútbol disputará el Campeonato Nacional Prejuvenil de Fútbol en la ciudad de Pereira, en el que Telemedellin, Canal oficial de la Selección, acompañará al equipo con la transmisión en directo de los 4 partidos.</p>
 		<p>El concurso consta de 4 rondas, y los ganadores serán las 10 personas que más puntaje acumulen en todas las etapas.</p>
@@ -19,7 +19,7 @@
 		<p>Además, en cada ronda se contará con una cuarta pregunta de bonificación que sólo estará activa después de cada partido y hasta las 23:59 del día de emisión del partido en cuestión. Esta pregunta otorga: 15 puntos</p>
 		<p>El plazo máximo para responder las preguntas publicadas es el martes 26 de agosto de 2013 a las 23:59.</p>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4 col-sm-4">
 		<p class="partido">Partido <?php echo $partido_id;?> 
 		<?php if( $puntos != 0): ?>
 			<span class="badge"><?php echo $puntos ?> puntos</span></p>

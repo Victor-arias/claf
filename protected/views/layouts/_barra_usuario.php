@@ -13,7 +13,7 @@ if(!is_null($idSesion)):
 		<span class="pull-right">
 			<strong>Jugador:</strong> <?php echo $usuarioConectado->nombre . " " . $usuarioConectado->apellido ?> 
 			<span class="badge"><?php echo $usuarioConectado->puntaje ?> puntos</span> 
-			<?php echo ' | ' . CHtml::link('Cerrar Sesión', 'logout', array('class' => 'btn btn-danger btn-xs'))?>
+			<?php echo ' | ' . CHtml::link('Cerrar Sesión', array('site/logout'), array('class' => 'btn btn-danger btn-xs'))?>
 		</span>
 	</div>
 </div>
