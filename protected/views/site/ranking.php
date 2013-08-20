@@ -17,7 +17,7 @@ $this->pageTitle = 'Ranking - '.Yii::app()->name;
 		<?php $i = 1; foreach($ranking as $puntos): ?>
 		<tr>
 			<td class="lugar"><?php echo $i; $i++?></td> 
-			<td><?php echo $puntos->nombre ?></td>
+			<td><?php echo $puntos->nombre . ' ' . $puntos->apellido?></td>
 			<td class="total"><?php echo $puntos->puntaje ?></td>
 		</tr>
 		<?php endforeach; ?>
