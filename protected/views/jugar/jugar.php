@@ -12,13 +12,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->getBaseUrl().'/js/juego
 		<div></div>
 		<a href="#"></a>
 	</div>
-	<div id="pregunta" class="panel panel-primary">
+	<div id="pregunta" class="panel panel-info">
 		<p id="p" class="pregunta panel-heading">Cargando ...</p>
 		<div class="panel-body">
-		<a href="#" id="ra" class="btn btn-primary"></a>
-		<a href="#" id="rb" class="btn btn-primary"></a>
-		<a href="#" id="rc" class="btn btn-primary"></a>
-		<a href="#" id="rd" class="btn btn-primary"></a>
+			<a href="#" id="ra"></a>
+			<a href="#" id="rb"></a>
+			<a href="#" id="rc"></a>
+			<a href="#" id="rd"></a>
 		</div>
 	</div>
 </div>

@@ -156,10 +156,10 @@ $(function() {
 				tmp_respuestas 	= data.respuestas.sort(function() {return 0.5 - Math.random()});
 				
 				p.text(tmp_pregunta.pregunta);
-				ra.text(tmp_respuestas[0].respuesta).addClass(tmp_respuestas[0].id);
-				rb.text(tmp_respuestas[1].respuesta).addClass(tmp_respuestas[1].id);
-				rc.text(tmp_respuestas[2].respuesta).addClass(tmp_respuestas[2].id);
-				rd.text(tmp_respuestas[3].respuesta).addClass(tmp_respuestas[3].id);
+				ra.text(tmp_respuestas[0].respuesta).addClass('btn btn-primary ' + tmp_respuestas[0].id);
+				rb.text(tmp_respuestas[1].respuesta).addClass('btn btn-primary ' + tmp_respuestas[1].id);
+				rc.text(tmp_respuestas[2].respuesta).addClass('btn btn-primary ' + tmp_respuestas[2].id);
+				rd.text(tmp_respuestas[3].respuesta).addClass('btn btn-primary ' + tmp_respuestas[3].id);
 
 				ocultar_mensaje();
 				preguntan = data.pn;
@@ -210,7 +210,7 @@ $(function() {
 	function responder(e)
 	{
 		var id = e.target.id;
-		var respuesta_id = $('#'+id).attr('class');
+		var respuesta_id = $('#'+id).attr('class').substring(16);
 		if( parseInt(respuesta_id) == respuesta_id )
 		{
 			$.post('jugar/responder', {r: respuesta_id}, mostrar_respuesta);
