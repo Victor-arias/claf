@@ -18,6 +18,28 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
+	 */
+	public function accessRules()
+	{
+		return array(
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('index', 'error', 'login', 'registro', 'puntajes', 'recuperarcontrasena', 'validaridentidad','verificar', 'verificarcorreo'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('instrucciones', 'logout'),
+				'users'=>array('@'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
+
+	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
 	 */
@@ -50,7 +72,13 @@ class SiteController extends Controller
 	}
 
 	public function actionInstrucciones()
-	{		
+	{
+		$idSesion = Yii::app()->user->id;		
+		$objUsuario = new Usuario();
+		$usuario = $objUsuario->findByPk($idSesion);
+		$objJugador = new Jugador();
+		$jugador = $objJugador->find("usuario_id = $usuario->id");
+		$this->user = $jugador;			
 		if( isset($_GET['partido']) ) $partido_id = $_GET['partido'];
 		else
 		{
@@ -58,7 +86,7 @@ class SiteController extends Controller
 			$partido_id = $partido->id;
 		}
 
-		$jugador_id =  /*Yii::app()->user->id*/1;
+		$jugador_id =  $jugador->id;
 		
 		//Verifico si ya jugó el partido solicitado
 		$verificar = Ronda::model()->findByAttributes( array('jugador_id' => $jugador_id, 'partido_id' => $partido_id) );
