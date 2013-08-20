@@ -9,11 +9,17 @@ if(!is_null($idSesion)):
 ?>
 <div class="row">	
 	<div class="span12 well">
-		<span><?php echo CHtml::link(' Inicio', '/', array('class' => 'btn btn-link glyphicon glyphicon-home')) ?></span>
+		<span><?php echo CHtml::link(' Inicio', Yii::app()->request->baseUrl, array('class' => 'btn btn-link glyphicon glyphicon-home')) ?></span>
 		<span class="pull-right">
 			<strong>Jugador:</strong> <?php echo $usuarioConectado->nombre . " " . $usuarioConectado->apellido ?> | 
 			Puntaje Total: <?php echo $usuarioConectado->puntaje . ' | ' . CHtml::link('Cerrar Sesión', 'logout', array('class' => 'btn btn-danger btn-xs'))?>
 		</span>
 	</div>
 </div>
+<?php else: ?>
+<div class="row">	
+	<div class="span12 well">
+		<span><?php echo CHtml::link(' Inicio', Yii::app()->request->baseUrl, array('class' => 'btn btn-link glyphicon glyphicon-home')) ?></span>
+	</div>
+</div>	
 <?php endif; ?>
