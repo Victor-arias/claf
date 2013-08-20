@@ -16,6 +16,7 @@
 </head>
 <body>
 <div class="container">
+	<?php echo $this->renderPartial('//layouts/barra_usuario') ?>
 	<?php echo $content; ?>
 	<div class="clear"></div>
 	<footer>

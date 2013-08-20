@@ -1,10 +1,4 @@
 <div class="row">
-	<div class="span12 well">
-		<strong>Jugador:</strong> <?php echo $this->user->nombre . " " . $this->user->apellido ?>
-		<span class="pull-right">Puntaje Total: <?php echo $this->user->puntaje . ' | ' . CHtml::link('Cerrar Sesión', 'logout')?></span>
-	</div>
-</div>
-<div class="row">
 	<div class="col-md-8"> 
 		<h2>Instrucciones</h2>
 		<p>Entre el 20 y el 26 de agosto la selección Antioquia de fútbol disputará el Campeonato Nacional Prejuvenil de Fútbol en la ciudad de Pereira, en el que Telemedellin, Canal oficial de la Selección, acompañará al equipo con la transmisión en directo de los 4 partidos.</p>
