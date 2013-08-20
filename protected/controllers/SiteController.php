@@ -146,8 +146,7 @@ class SiteController extends Controller
 		//var_dump($_POST['Jugador']); die();
 		if(isset($_POST['Usuario'], $_POST['Jugador']))
 		{
-			$objUsuario = new Usuario();
-			$transaction = $objUsuario->dbConnection->beginTransaction();
+			$transaction = $usuario->dbConnection->beginTransaction();
 
 			$usuario->attributes = $_POST['Usuario'];
 			
@@ -160,34 +159,34 @@ class SiteController extends Controller
         	$validUser = false;
 
         	if($usuario->validate())
-        		$validUser = true;
-        	else
-        		$transaction->rollback();
+        		$validUser = true;        		
 
         	if($validUser)
 	        {				
-	            $usuario->save(false);
+	            if(!$usuario->save(false)){
+	            	$transaction->rollback();	
+	            }
 	            $jugador->usuario_id = $usuario->id;
 	            
 	            $validPlayer = false;
 	            
 	            if($jugador->validate())
-	            	$validPlayer = true;
-		        else
-		        	$transaction->rollback();	            
+	            	$validPlayer = true;            
 
 	            if($validPlayer){
-		            $jugador->save(false);
-					$transaction->commit();
+		            if(!$jugador->save(false)){
+		            	$transaction->rollback();
+		            }
+					
 		            $datos = array(	'nombre' 			=> $jugador->nombre,
 		            				'correo' 			=> $usuario->correo,
 		            				'llave_activacion' 	=> $usuario->llave_activacion
 		            				);
 
 		            $this->verificarCorreo($datos);
-
+		            $transaction->commit();
 		            Yii::app()->end();
-	            }
+	            }	            
 	        }
 		}
 
