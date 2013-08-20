@@ -20,11 +20,11 @@
 		<p>El plazo máximo para responder las preguntas publicadas es el martes 26 de agosto de 2013 a las 23:59.</p>
 	</div>
 	<div class="col-md-4">
-		<p class="partido">Partido <?php echo $partido_id;?></p>
-		<?php if( $puntos == 0): ?>
-		<p><?php echo CHtml::link('Jugar', array('/jugar?partido=' . $partido_id), array('class' => 'btn btn-primary btn-lg') )?></p>
+		<p class="partido">Partido <?php echo $partido_id;?> 
+		<?php if( $puntos != 0): ?>
+			<span class="badge"><?php echo $puntos ?> puntos</span></p>
 		<?php else: ?>
-			Puntos: <?php echo $puntos ?>
+			</p><p><?php echo CHtml::link('Jugar', array('/jugar?partido=' . $partido_id), array('class' => 'btn btn-primary btn-lg') )?></p>
 		<?php endif; ?>
 		<div>
 			<ul class="list-group">
