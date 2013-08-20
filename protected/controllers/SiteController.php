@@ -274,8 +274,8 @@ class SiteController extends Controller
         $mnino->render();
 		$mnino->Subject    = 'Registro ';
         $mnino->AddAddress($datos['correo']);
-        $mnino->From = 'contacto@concursomedellin2018.com';
-        $mnino->FromName = 'Concurso Medellín 2018';  
+        $mnino->From = 'comunicaciones@telemedellin.tv';
+        $mnino->FromName = 'Concurso Me visto de Antioquia';  
         $mnino->Send();
         
         $this->render('verificar_correo', array('datos' => $datos) );
