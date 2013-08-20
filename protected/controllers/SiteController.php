@@ -154,7 +154,6 @@ class SiteController extends Controller
 			$usuario->llave_activacion = md5(time());
 			$usuario->estado = 1;
 			$usuario->es_admin = 0;	        	
-			$usuario->password = md5($usuario->password);
 			$jugador->usuario_id = 0;
 			if($usuario->validate() && $jugador->validate()){
 				if($usuario->save()){

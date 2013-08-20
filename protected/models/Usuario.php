@@ -99,4 +99,20 @@ class Usuario extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	protected function beforeSave()
+	{
+		        
+        if($this->isNewRecord)
+        {
+        	$usuario->password = md5($usuario->password);
+        }
+        else
+        {
+        	$usuario->password = md5($usuario->password);
+        }
+        
+    	return true;
+	}	
+				
 }
