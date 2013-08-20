@@ -8,8 +8,8 @@ if(!is_null($idSesion)):
 	$usuarioConectado = $usuario;	
 ?>
 <div class="row">	
-	<div class="span12 well">
-		<span><?php echo CHtml::link(' Inicio', Yii::app()->request->baseUrl, array('class' => 'btn btn-link glyphicon glyphicon-home')) ?></span>
+	<div class="span12 well well-sm">
+		<?php echo CHtml::link('<span class="glyphicon glyphicon-home"></span> Inicio', Yii::app()->request->baseUrl, array('class' => 'btn btn-link')) ?>
 		<span class="pull-right">
 			<strong>Jugador:</strong> <?php echo $usuarioConectado->nombre . " " . $usuarioConectado->apellido ?> 
 			<span class="badge"><?php echo $usuarioConectado->puntaje ?> puntos</span> 
@@ -19,8 +19,8 @@ if(!is_null($idSesion)):
 </div>
 <?php else: ?>
 <div class="row">	
-	<div class="span12 well">
-		<span><?php echo CHtml::link(' Inicio', Yii::app()->request->baseUrl, array('class' => 'btn btn-link glyphicon glyphicon-home')) ?></span>
+	<div class="span12 well well-sm">
+		<?php echo CHtml::link('<span class="glyphicon glyphicon-home"></span> Inicio', Yii::app()->request->baseUrl, array('class' => 'btn btn-link')) ?>
 	</div>
 </div>	
 <?php endif; ?>

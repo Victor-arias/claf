@@ -19,7 +19,8 @@
 	<?php echo $this->renderPartial('//layouts/_barra_usuario') ?>
 	<?php echo $content; ?>
 	<div class="clear"></div>
-	<footer>
+	<footer class="well well-sm">
+		<?php echo CHTML::link( 'Premios', array('/site/page', 'view' => 'premio'), array('class' => 'btn btn-link') ); ?>
 		<?php echo CHTML::link( 'Términos y condiciones', array('/site/page', 'view' => 'terminos-y-condiciones'), array('class' => 'btn btn-link') ); ?>
 		<?php echo CHTML::link( 'Puntajes', array('/site/puntajes'), array('class' => 'btn btn-link') ); ?>
 	</footer>
