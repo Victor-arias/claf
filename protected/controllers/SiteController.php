@@ -50,13 +50,7 @@ class SiteController extends Controller
 	}
 
 	public function actionInstrucciones()
-	{
-		$idSesion = Yii::app()->user->id;		
-		$objUsuario = new Usuario();
-		$usuario = $objUsuario->findByPk($idSesion);
-		$objUsuario = new Jugador();
-		$usuario = $objUsuario->find("usuario_id = $usuario->id");
-		$this->user = $usuario;			
+	{		
 		if( isset($_GET['partido']) ) $partido_id = $_GET['partido'];
 		else
 		{
