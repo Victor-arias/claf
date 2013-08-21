@@ -3,6 +3,11 @@
 
 $this->pageTitle = Yii::app()->name;
 ?>
+<div class="row">
+	<div class="span12">
+		<p class="text-center"><?php echo CHtml::image(Yii::app()->request->baseUrl . "/images/banner-concurso-micro.jpg"); ?></p>
+	</div>
+</div>
 <div class="container">
 	<p class="lead">Registrate, demuestra tus conocimientos sobre la selección Antioquia, acumula puntos y podrás ganar alguno de los siguientes premios:</p>
 		<p><strong>PRIMER PUESTO:</strong> Camiseta  de Selección Antioquia + Camiseta de Celtic + Balón de Celtic + Cámara Digital</p>
